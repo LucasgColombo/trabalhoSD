@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de preços da Steam</title>
+    <link rel="stylesheet" href="visual.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Consultor de preços da Steam</h1>
+        <form id="eventForm">
+            <div class="form-group">
+                <label for="nomeJogo">Nome do jogo:</label>
+                <input type="text" id="nomeJogo" name="nomeJogo" required>
+            </div>
+            
+            <button type="submit">Buscar preço</button>
+        </form>
+        <p id="message"></p>
+    </div>
+    <script src="dinamica.js"></script>
+</body>
+</html>
