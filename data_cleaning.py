@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 
 try:
-    with open('steam_games.html', 'r', encoding='utf-8') as file:
+    with open('/home/lucas/Documentos/GitHub/trabalhoSD/steam_games.html', 'r', encoding='utf-8') as file:
         content = file.read()
     print("Arquivo lido com sucesso!")
 except FileNotFoundError:
@@ -39,10 +39,10 @@ df = df[df['price'].apply(lambda x: x != 'Preço não disponível')]
 df['price'] = pd.to_numeric(df['price'], errors='coerce')
 
 # Salvar o DataFrame limpo
-df.to_csv('cleaned_steam_games.csv', index=False)
+df.to_csv('/home/lucas/Documentos/GitHub/trabalhoSD/cleaned_steam_games.csv', index=False)
 
 # Carregar o dataset
-with open('cleaned_steam_games.csv', 'rb') as file:
+with open('/home/lucas/Documentos/GitHub/trabalhoSD/cleaned_steam_games.csv', 'rb') as file:
     response = requests.post('http://localhost:3000/upload', files={'dataset': file})
 
 print(response.text)
