@@ -41,7 +41,7 @@ label {
 }
 
 input[type="text"],
-input[type="date"],
+
 textarea {
     width: 100%;
     padding: 10px;
@@ -49,10 +49,6 @@ textarea {
     border-radius: 4px;
     background: #2a2d30; /* Cor de fundo dos campos */
     color: #ffffff; /* Cor do texto dos campos */
-}
-
-textarea {
-    resize: vertical;
 }
 
 button {
