@@ -9,18 +9,18 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(cors()); // Adiciona suporte a CORS
 app.use(bodyParser.json()); // Adiciona suporte a JSON
-app.use(express.static('/home/lucas/Documentos/GitHub/trabalhoSD')); // Servir arquivos estáticos a partir da raiz do projeto
+app.use(express.static('trabalhoSD')); // Servir arquivos estáticos a partir da raiz do projeto
 
 // Rota para exibir o gráfico
 app.get('/graph', (req, res) => {
-    res.sendFile(path.join('/home/lucas/Documentos/GitHub/trabalhoSD', 'graph.html'));
+    res.sendFile(path.join(__dirname, 'graph.html'));
 });
 
 // Rota para fornecer os dados do CSV
 app.get('/get-data', (req, res) => {
     const games = [];
 
-    fs.createReadStream('/home/lucas/Documentos/GitHub/trabalhoSD/cleaned_steam_games.csv')
+    fs.createReadStream('cleaned_steam_games.csv')
         .pipe(csv())
         .on('data', (row) => {
             games.push(row);

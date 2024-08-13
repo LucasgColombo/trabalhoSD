@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 
 # Caminho do arquivo HTML
-html_file_path = '/home/lucas/Documentos/GitHub/trabalhoSD/steam_games.html'
+html_file_path = 'steam_games.html'
 
 # Tentativa de leitura do arquivo HTML
 try:
@@ -45,10 +45,10 @@ df = df[df['price'].apply(lambda x: x != 'Preço não disponível')]
 df['price'] = pd.to_numeric(df['price'], errors='coerce')
 
 # Salvar o DataFrame limpo
-df.to_csv('/home/lucas/Documentos/GitHub/trabalhoSD/cleaned_steam_games.csv', index=False)
+df.to_csv('cleaned_steam_games.csv', index=False)
 
 # Carregar o dataset
-with open('/home/lucas/Documentos/GitHub/trabalhoSD/cleaned_steam_games.csv', 'rb') as file:
-    response = requests.post('http://localhost:3000/upload', files={'dataset': file})
+with open('cleaned_steam_games.csv', 'rb') as file:
+    response = requests.post('http://node-container:3000/upload', files={'dataset': file})
 
 print(response.text)
