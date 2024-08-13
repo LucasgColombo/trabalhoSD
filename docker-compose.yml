@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  python-module:
+    build:
+      context: /home/lucas/Documentos/GitHub/trabalhoSD
+      dockerfile: Dockerfile.python
+    container_name: python-container
+    volumes:
+      - .:/app
+    command: python data_cleaning.py
+    depends_on:
+      - node-module
+
+  node-module:
+    build:
+      context: /home/lucas/Documentos/GitHub/trabalhoSD
+      dockerfile: Dockerfile.node
+    container_name: node-container
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development

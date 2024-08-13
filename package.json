@@ -20,8 +20,10 @@
   "homepage": "https://github.com/LucasgColombo/trabalhoSD#readme",
   "dependencies": {
     "chart.js": "^4.4.3",
+    "cors": "^2.8.5",
     "csv-parser": "^3.0.0",
     "express": "^4.19.2"
-  },
-  "devDependencies": {}
+  }
+
+
 }

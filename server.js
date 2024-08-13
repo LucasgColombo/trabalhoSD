@@ -1,11 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parser');
 const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
 
 const app = express();
-app.use(express.json());
+app.use(cors()); // Adiciona suporte a CORS
+app.use(bodyParser.json()); // Adiciona suporte a JSON
 app.use(express.static('/home/lucas/Documentos/GitHub/trabalhoSD')); // Servir arquivos estáticos a partir da raiz do projeto
 
 // Rota para exibir o gráfico
@@ -27,20 +30,21 @@ app.get('/get-data', (req, res) => {
         });
 });
 
+// Configuração do transporte de email
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'lucas.colombo@estudante.ufla.br', // Substitua pelo seu email
+        pass: 'ogfd nplm jcuy lsqg' // Substitua pela sua senha de aplicativo
+    }
+});
+
 // Rota para notificação por email
 app.post('/notify', (req, res) => {
     const { email, evento } = req.body;
 
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'seuemail@gmail.com',
-            pass: 'suasenha'
-        }
-    });
-
     const mailOptions = {
-        from: 'seuemail@gmail.com',
+        from: 'lucas.colombo@estudante.ufla.br',
         to: email,
         subject: 'Novo Evento Cadastrado',
         text: `Você cadastrou o evento: ${evento}`
@@ -48,10 +52,10 @@ app.post('/notify', (req, res) => {
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log(error);
+            console.error('Erro ao enviar email:', error);
             res.status(500).send('Erro ao enviar email');
         } else {
-            console.log('Email enviado: ' + info.response);
+            console.log('Email enviado:', info.response);
             res.send('Notificação enviada com sucesso!');
         }
     });

@@ -10,11 +10,29 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
         return;
     }
 
-    // Aqui você pode adicionar a lógica para enviar o email para o servidor ou outra ação necessária.
-
-    message.textContent = `Email ${email} cadastrado com sucesso!`;
-    message.style.color = 'white';
-
-    // Limpar o formulário após o sucesso (opcional)
-    document.getElementById('eventForm').reset();
+    fetch('http://localhost:3000/notify', { // Certifique-se de que o servidor está rodando na porta correta
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            evento: 'Cadastro de email para notificação'
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na resposta do servidor');
+        }
+        return response.text();
+    })
+    .then(result => {
+        message.textContent = result;
+        message.style.color = 'white';
+    })
+    .catch(error => {
+        console.error('Erro:', error); // Adiciona logging para debugging
+        message.textContent = 'Erro ao enviar notificação.';
+        message.style.color = '#ff4c4c'; // Cor para mensagem de erro
+    });
 });
