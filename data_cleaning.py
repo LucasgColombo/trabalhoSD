@@ -2,19 +2,25 @@ import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 
+# Caminho do arquivo HTML
+html_file_path = '/home/lucas/Documentos/GitHub/trabalhoSD/steam_games.html'
+
+# Tentativa de leitura do arquivo HTML
 try:
-    with open('/home/lucas/Documentos/GitHub/trabalhoSD/steam_games.html', 'r', encoding='utf-8') as file:
+    with open(html_file_path, 'r', encoding='utf-8') as file:
         content = file.read()
     print("Arquivo lido com sucesso!")
 except FileNotFoundError:
-    print("Arquivo steam_games.html não encontrado.")
+    print(f"Arquivo {html_file_path} não encontrado.")
+    #exit(1)  # Encerra o script caso o arquivo não seja encontrado
 
-# Teste o parsing do HTML
+# Tentativa de parsing do HTML
 try:
     soup = BeautifulSoup(content, 'html.parser')
     print("Parsing HTML realizado com sucesso!")
 except Exception as e:
     print(f"Erro ao fazer parsing do HTML: {e}")
+    exit(1)  # Encerra o script caso ocorra um erro no parsing
 
 # Extrair informações dos jogos
 games = []
