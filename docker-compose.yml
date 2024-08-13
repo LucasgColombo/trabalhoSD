@@ -4,10 +4,10 @@ services:
   python-module:
     build:
       context: /home/lucas/Documentos/GitHub/trabalhoSD
-      dockerfile: Dockerfile.python
+      dockerfile: python.Dockerfile
     container_name: python-container
     volumes:
-      - .:/app
+      - /home/lucas/Documentos/GitHub/trabalhoSD:/app
     command: python data_cleaning.py
     depends_on:
       - node-module
@@ -15,11 +15,11 @@ services:
   node-module:
     build:
       context: /home/lucas/Documentos/GitHub/trabalhoSD
-      dockerfile: Dockerfile.node
+      dockerfile: node.Dockerfile
     container_name: node-container
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
+      - /home/lucas/Documentos/GitHub/trabalhoSD:/app
     environment:
       - NODE_ENV=development
