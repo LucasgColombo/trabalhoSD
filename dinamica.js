@@ -10,7 +10,7 @@ document.getElementById('eventForm').addEventListener('submit', function(event) 
         return;
     }
 
-    fetch('http://node-container:3000/notify', { // Certifique-se de que o servidor está rodando na porta correta
+    fetch('http://localhost:3000/notify', { // Certifique-se de que o servidor está rodando na porta correta
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
