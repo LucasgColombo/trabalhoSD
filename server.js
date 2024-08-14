@@ -15,6 +15,10 @@ app.use(express.static('trabalhoSD')); // Servir arquivos estáticos a partir da
 // Configuração do multer para uploads
 const upload = multer({ dest: 'uploads/' }); // Diretório onde os arquivos serão salvos
 
+app.get('/index', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // Rota para exibir o gráfico
 app.get('/graph', (req, res) => {
     res.sendFile(path.join(__dirname, 'graph.html'));
