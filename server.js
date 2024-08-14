@@ -5,11 +5,15 @@ const path = require('path');
 const csv = require('csv-parser');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+const multer = require('multer'); // Importando o multer para uploads
 
 const app = express();
 app.use(cors()); // Adiciona suporte a CORS
 app.use(bodyParser.json()); // Adiciona suporte a JSON
 app.use(express.static('trabalhoSD')); // Servir arquivos estáticos a partir da raiz do projeto
+
+// Configuração do multer para uploads
+const upload = multer({ dest: 'uploads/' }); // Diretório onde os arquivos serão salvos
 
 // Rota para exibir o gráfico
 app.get('/graph', (req, res) => {
@@ -28,6 +32,25 @@ app.get('/get-data', (req, res) => {
         .on('end', () => {
             res.json(games);
         });
+});
+
+// Rota para upload do arquivo CSV
+app.post('/upload', upload.single('dataset'), (req, res) => {
+    if (!req.file) {
+        return res.status(400).send('Nenhum arquivo foi enviado.');
+    }
+
+    // Caminho do arquivo enviado
+    const filePath = path.join(__dirname, req.file.path);
+
+    // Mover ou processar o arquivo conforme necessário
+    fs.rename(filePath, path.join(__dirname, 'cleaned_steam_games.csv'), (err) => {
+        if (err) {
+            console.error('Erro ao mover o arquivo:', err);
+            return res.status(500).send('Erro ao processar o arquivo.');
+        }
+        res.send('Arquivo recebido e salvo com sucesso!');
+    });
 });
 
 // Configuração do transporte de email
