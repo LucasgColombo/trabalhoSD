@@ -10,7 +10,7 @@ const multer = require('multer'); // Importando o multer para uploads
 const app = express();
 app.use(cors()); // Adiciona suporte a CORS
 app.use(bodyParser.json()); // Adiciona suporte a JSON
-app.use(express.static('trabalhoSD')); // Servir arquivos estáticos a partir da raiz do projeto
+app.use(express.static('/app')); // Servir arquivos estáticos a partir da raiz do projeto
 
 // Configuração do multer para uploads
 const upload = multer({ dest: 'uploads/' }); // Diretório onde os arquivos serão salvos
